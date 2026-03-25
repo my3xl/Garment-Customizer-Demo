@@ -1,6 +1,6 @@
 /**
- * Vercel Serverless Function - DashScope Multimodal API Proxy
- * 处理多模态生图请求
+ * Vercel Serverless Function - DashScope API Proxy
+ * 代理所有 /api/dashscope/* 请求到阿里云 DashScope API
  */
 
 export const config = {
@@ -10,25 +10,29 @@ export const config = {
 };
 
 export default async function handler(req, res) {
-  // 设置 CORS 头
+  // CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Authorization, Content-Type, X-DashScope-Async');
 
   if (req.method === 'OPTIONS') {
     return res.status(200).end();
   }
 
-  if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed' });
-  }
+  // 获取路径参数
+  const { path } = req.query;
+  const apiPath = Array.isArray(path) ? path.join('/') : path;
 
-  const targetUrl = 'https://dashscope.aliyuncs.com/api/v1/services/aigc/multimodal-generation/generation';
+  // 构建目标 URL
+  const targetUrl = `https://dashscope.aliyuncs.com/api/v1/${apiPath}`;
+
+  console.log('Proxying to:', targetUrl);
 
   try {
     const headers = {
       'Content-Type': 'application/json',
     };
+
     if (req.headers.authorization) {
       headers['Authorization'] = req.headers.authorization;
     }
@@ -36,16 +40,21 @@ export default async function handler(req, res) {
       headers['X-DashScope-Async'] = req.headers['x-dashscope-async'];
     }
 
-    const response = await fetch(targetUrl, {
-      method: 'POST',
+    const fetchOptions = {
+      method: req.method,
       headers,
-      body: JSON.stringify(req.body),
-    });
+    };
 
+    if (req.method === 'POST' && req.body) {
+      fetchOptions.body = JSON.stringify(req.body);
+    }
+
+    const response = await fetch(targetUrl, fetchOptions);
     const data = await response.json();
+
     return res.status(response.status).json(data);
   } catch (error) {
-    console.error('Multimodal proxy error:', error);
+    console.error('Proxy error:', error);
     return res.status(500).json({ error: error.message });
   }
 }
