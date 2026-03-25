@@ -1,0 +1,152 @@
+{
+  "categories": [
+    { "id": "buttons", "name": "纽扣", "nameEn": "Buttons" },
+    { "id": "zippers", "name": "拉链", "nameEn": "Zippers" },
+    { "id": "threads", "name": "缝线", "nameEn": "Threads" },
+    { "id": "labels", "name": "标签", "nameEn": "Labels" }
+  ],
+  "parts": [
+    { "id": "collar", "name": "领口", "nameEn": "Collar" },
+    { "id": "cuffs", "name": "袖口", "nameEn": "Cuffs" },
+    { "id": "placket", "name": "门襟", "nameEn": "Placket" },
+    { "id": "pocket", "name": "口袋", "nameEn": "Pocket" },
+    { "id": "hem", "name": "下摆", "nameEn": "Hem" },
+    { "id": "waist", "name": "腰头", "nameEn": "Waist" },
+    { "id": "sleeves", "name": "袖子", "nameEn": "Sleeves" },
+    { "id": "buttons", "name": "纽扣位", "nameEn": "Buttons" },
+    { "id": "zipper", "name": "拉链", "nameEn": "Zipper" },
+    { "id": "hood", "name": "帽子", "nameEn": "Hood" },
+    { "id": "drawstrings", "name": "抽绳", "nameEn": "Drawstrings" },
+    { "id": "neckline", "name": "领口", "nameEn": "Neckline" }
+  ],
+  "items": [
+    {
+      "id": "acc-001",
+      "name": "珍珠纽扣",
+      "nameEn": "Pearl Button",
+      "category": "buttons",
+      "pricePerUnit": 2.5,
+      "colors": [
+        { "id": "white", "name": "白色", "nameEn": "White", "hex": "#FFFFFF" },
+        { "id": "black", "name": "黑色", "nameEn": "Black", "hex": "#000000" },
+        { "id": "ivory", "name": "象牙白", "nameEn": "Ivory", "hex": "#FFFFF0" }
+      ],
+      "image": "https://placehold.co/100x100/e2e8f0/475569?text=Pearl",
+      "applicableParts": ["collar", "placket", "cuffs", "pocket"]
+    },
+    {
+      "id": "acc-002",
+      "name": "金属纽扣",
+      "nameEn": "Metal Button",
+      "category": "buttons",
+      "pricePerUnit": 4,
+      "colors": [
+        { "id": "silver", "name": "银色", "nameEn": "Silver", "hex": "#C0C0C0" },
+        { "id": "gold", "name": "金色", "nameEn": "Gold", "hex": "#FFD700" },
+        { "id": "black", "name": "黑色", "nameEn": "Black", "hex": "#1A1A1A" }
+      ],
+      "image": "https://placehold.co/100x100/e2e8f0/475569?text=Metal",
+      "applicableParts": ["collar", "placket", "cuffs", "pocket", "waist"]
+    },
+    {
+      "id": "acc-003",
+      "name": "树脂纽扣",
+      "nameEn": "Resin Button",
+      "category": "buttons",
+      "pricePerUnit": 1.5,
+      "colors": [
+        { "id": "white", "name": "白色", "nameEn": "White", "hex": "#FFFFFF" },
+        { "id": "black", "name": "黑色", "nameEn": "Black", "hex": "#000000" },
+        { "id": "navy", "name": "藏青", "nameEn": "Navy", "hex": "#000080" },
+        { "id": "brown", "name": "棕色", "nameEn": "Brown", "hex": "#8B4513" }
+      ],
+      "image": "https://placehold.co/100x100/e2e8f0/475569?text=Resin",
+      "applicableParts": ["collar", "placket", "cuffs", "pocket", "hem"]
+    },
+    {
+      "id": "acc-004",
+      "name": "YKK金属拉链",
+      "nameEn": "YKK Metal Zipper",
+      "category": "zippers",
+      "pricePerUnit": 15,
+      "colors": [
+        { "id": "silver", "name": "银色", "nameEn": "Silver", "hex": "#C0C0C0" },
+        { "id": "gold", "name": "金色", "nameEn": "Gold", "hex": "#FFD700" },
+        { "id": "black", "name": "黑色", "nameEn": "Black", "hex": "#1A1A1A" },
+        { "id": "antique", "name": "古铜", "nameEn": "Antique Bronze", "hex": "#CD7F32" }
+      ],
+      "image": "https://placehold.co/100x100/e2e8f0/475569?text=YKK-M",
+      "applicableParts": ["placket", "pocket"]
+    },
+    {
+      "id": "acc-005",
+      "name": "YKK树脂拉链",
+      "nameEn": "YKK Resin Zipper",
+      "category": "zippers",
+      "pricePerUnit": 10,
+      "colors": [
+        { "id": "white", "name": "白色", "nameEn": "White", "hex": "#FFFFFF" },
+        { "id": "black", "name": "黑色", "nameEn": "Black", "hex": "#000000" },
+        { "id": "navy", "name": "藏青", "nameEn": "Navy", "hex": "#000080" }
+      ],
+      "image": "https://placehold.co/100x100/e2e8f0/475569?text=YKK-R",
+      "applicableParts": ["placket", "pocket"]
+    },
+    {
+      "id": "acc-006",
+      "name": "隐形拉链",
+      "nameEn": "Invisible Zipper",
+      "category": "zippers",
+      "pricePerUnit": 8,
+      "colors": [
+        { "id": "white", "name": "白色", "nameEn": "White", "hex": "#FFFFFF" },
+        { "id": "black", "name": "黑色", "nameEn": "Black", "hex": "#000000" },
+        { "id": "skin", "name": "肤色", "nameEn": "Skin", "hex": "#FFE0BD" }
+      ],
+      "image": "https://placehold.co/100x100/e2e8f0/475569?text=Invis",
+      "applicableParts": ["waist", "hem"]
+    },
+    {
+      "id": "acc-007",
+      "name": "涤纶缝线",
+      "nameEn": "Polyester Thread",
+      "category": "threads",
+      "pricePerUnit": 0.5,
+      "colors": [
+        { "id": "white", "name": "白色", "nameEn": "White", "hex": "#FFFFFF" },
+        { "id": "black", "name": "黑色", "nameEn": "Black", "hex": "#000000" },
+        { "id": "navy", "name": "藏青", "nameEn": "Navy", "hex": "#000080" },
+        { "id": "gray", "name": "灰色", "nameEn": "Gray", "hex": "#808080" }
+      ],
+      "image": "https://placehold.co/100x100/e2e8f0/475569?text=Thread",
+      "applicableParts": ["collar", "cuffs", "placket", "pocket", "hem", "waist"]
+    },
+    {
+      "id": "acc-008",
+      "name": "品牌织标",
+      "nameEn": "Woven Label",
+      "category": "labels",
+      "pricePerUnit": 3,
+      "colors": [
+        { "id": "white", "name": "白底黑字", "nameEn": "White/Black", "hex": "#FFFFFF" },
+        { "id": "black", "name": "黑底白字", "nameEn": "Black/White", "hex": "#000000" }
+      ],
+      "image": "https://placehold.co/100x100/e2e8f0/475569?text=Label",
+      "applicableParts": ["hem", "waist"]
+    },
+    {
+      "id": "acc-009",
+      "name": "皮牌",
+      "nameEn": "Leather Patch",
+      "category": "labels",
+      "pricePerUnit": 8,
+      "colors": [
+        { "id": "brown", "name": "棕色", "nameEn": "Brown", "hex": "#8B4513" },
+        { "id": "black", "name": "黑色", "nameEn": "Black", "hex": "#1A1A1A" },
+        { "id": "tan", "name": "棕褐", "nameEn": "Tan", "hex": "#D2691E" }
+      ],
+      "image": "https://placehold.co/100x100/e2e8f0/475569?text=Leather",
+      "applicableParts": ["waist", "pocket"]
+    }
+  ]
+}

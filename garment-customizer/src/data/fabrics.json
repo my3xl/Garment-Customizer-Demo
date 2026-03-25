@@ -1,0 +1,245 @@
+{
+  "fabricTypes": [
+    { "id": "cotton", "name": "棉", "nameEn": "Cotton" },
+    { "id": "linen", "name": "麻", "nameEn": "Linen" },
+    { "id": "polyester", "name": "聚酯纤维", "nameEn": "Polyester" },
+    { "id": "wool", "name": "羊毛", "nameEn": "Wool" },
+    { "id": "silk", "name": "丝绸", "nameEn": "Silk" },
+    { "id": "denim", "name": "牛仔", "nameEn": "Denim" }
+  ],
+  "fabricWeights": [
+    { "id": "light", "name": "轻薄", "nameEn": "Light", "range": "100-150 gsm" },
+    { "id": "medium", "name": "中等", "nameEn": "Medium", "range": "150-200 gsm" },
+    { "id": "heavy", "name": "厚重", "nameEn": "Heavy", "range": "200+ gsm" }
+  ],
+  "fabrics": [
+    {
+      "id": "fabric-001",
+      "name": "Premium Cotton Pique",
+      "type": "cotton",
+      "weight": "medium",
+      "pricePerUnit": 25,
+      "recommendedFor": ["shirts", "hoodies"],
+      "colors": [
+        { "id": "off-white", "name": "米白", "nameEn": "Off White", "hex": "#F5F0E6" },
+        { "id": "navy", "name": "深海蓝", "nameEn": "Deep Navy", "hex": "#1E3A5F" },
+        { "id": "charcoal", "name": "炭灰", "nameEn": "Charcoal", "hex": "#3D4654" },
+        { "id": "sage", "name": "鼠尾草绿", "nameEn": "Sage Green", "hex": "#9CAF88" },
+        { "id": "dusty-pink", "name": "干枯玫瑰", "nameEn": "Dusty Pink", "hex": "#D4A5A5" },
+        { "id": "slate-blue", "name": "板岩蓝", "nameEn": "Slate Blue", "hex": "#6A7B8B" }
+      ],
+      "image": "/images/fabrics/fabric-001.jpg",
+      "description": "高品质珠地棉，透气性好，适合Polo衫",
+      "descriptionEn": "Premium pique cotton, breathable, ideal for polo shirts"
+    },
+    {
+      "id": "fabric-002",
+      "name": "Oxford Cotton",
+      "type": "cotton",
+      "weight": "medium",
+      "pricePerUnit": 28,
+      "recommendedFor": ["shirts"],
+      "colors": [
+        { "id": "classic-white", "name": "经典白", "nameEn": "Classic White", "hex": "#FAFAFA" },
+        { "id": "powder-blue", "name": "粉蓝", "nameEn": "Powder Blue", "hex": "#B4C5D4" },
+        { "id": "blush", "name": "腮红", "nameEn": "Blush", "hex": "#D4A89A" },
+        { "id": "stone", "name": "石灰", "nameEn": "Stone", "hex": "#9B8B7A" },
+        { "id": "soft-lavender", "name": "淡薰衣草", "nameEn": "Soft Lavender", "hex": "#B8A9C9" },
+        { "id": "camel", "name": "驼色", "nameEn": "Camel", "hex": "#B5987A" }
+      ],
+      "image": "/images/fabrics/fabric-002.jpg",
+      "description": "经典牛津纺，质感独特，适合衬衫",
+      "descriptionEn": "Classic oxford weave, unique texture, ideal for shirts"
+    },
+    {
+      "id": "fabric-003",
+      "name": "Jersey Cotton",
+      "type": "cotton",
+      "weight": "light",
+      "pricePerUnit": 18,
+      "recommendedFor": ["hoodies", "leggings", "shorts"],
+      "colors": [
+        { "id": "ivory", "name": "象牙白", "nameEn": "Ivory", "hex": "#F8F4E8" },
+        { "id": "midnight", "name": "午夜蓝", "nameEn": "Midnight Blue", "hex": "#1A2A3A" },
+        { "id": "warm-grey", "name": "暖灰", "nameEn": "Warm Grey", "hex": "#8B8178" },
+        { "id": "olive-drab", "name": "橄榄绿", "nameEn": "Olive Drab", "hex": "#6B705C" },
+        { "id": "terracotta", "name": "赤陶", "nameEn": "Terracotta", "hex": "#C4785A" },
+        { "id": "dusty-blue", "name": "灰蓝", "nameEn": "Dusty Blue", "hex": "#7A8B99" }
+      ],
+      "image": "/images/fabrics/fabric-003.jpg",
+      "description": "柔软针织棉，弹性好，适合T恤",
+      "descriptionEn": "Soft jersey cotton, good elasticity, ideal for T-shirts"
+    },
+    {
+      "id": "fabric-004",
+      "name": "French Terry",
+      "type": "cotton",
+      "weight": "heavy",
+      "pricePerUnit": 32,
+      "recommendedFor": ["hoodies", "shorts"],
+      "colors": [
+        { "id": "heather-grey", "name": "麻灰", "nameEn": "Heather Grey", "hex": "#9B9B9B" },
+        { "id": "jet-black", "name": "墨黑", "nameEn": "Jet Black", "hex": "#1A1A1A" },
+        { "id": "navy-midnight", "name": "藏青", "nameEn": "Navy Midnight", "hex": "#1E2D3D" },
+        { "id": "burgundy", "name": "勃艮第红", "nameEn": "Burgundy", "hex": "#6B3A3A" },
+        { "id": "forest", "name": "森林绿", "nameEn": "Forest", "hex": "#3D4F3D" },
+        { "id": "oatmeal", "name": "燕麦色", "nameEn": "Oatmeal", "hex": "#C9B99A" }
+      ],
+      "image": "/images/fabrics/fabric-004.jpg",
+      "description": "毛圈布，保暖透气，适合卫衣",
+      "descriptionEn": "French terry, warm and breathable, ideal for hoodies"
+    },
+    {
+      "id": "fabric-005",
+      "name": "Premium Wool Blend",
+      "type": "wool",
+      "weight": "medium",
+      "pricePerUnit": 65,
+      "recommendedFor": ["jackets", "coats"],
+      "colors": [
+        { "id": "anthracite", "name": "无烟煤灰", "nameEn": "Anthracite", "hex": "#2E3335" },
+        { "id": "ink-blue", "name": "墨蓝", "nameEn": "Ink Blue", "hex": "#1E2842" },
+        { "id": "espresso", "name": "浓缩咖啡", "nameEn": "Espresso", "hex": "#3C2415" },
+        { "id": "camel-hair", "name": "驼毛色", "nameEn": "Camel Hair", "hex": "#A67B5B" },
+        { "id": "grey-flannel", "name": "法兰绒灰", "nameEn": "Grey Flannel", "hex": "#6B7177" },
+        { "id": "wine", "name": "酒红", "nameEn": "Wine", "hex": "#5C2E35" }
+      ],
+      "image": "/images/fabrics/fabric-005.jpg",
+      "description": "优质羊毛混纺，保暖性强，适合夹克",
+      "descriptionEn": "Premium wool blend, excellent warmth, ideal for jackets"
+    },
+    {
+      "id": "fabric-006",
+      "name": "Linen Blend",
+      "type": "linen",
+      "weight": "light",
+      "pricePerUnit": 35,
+      "recommendedFor": ["shirts", "shorts"],
+      "colors": [
+        { "id": "natural-linen", "name": "原麻色", "nameEn": "Natural Linen", "hex": "#E8DFD0" },
+        { "id": "pearl-white", "name": "珍珠白", "nameEn": "Pearl White", "hex": "#F5F2EA" },
+        { "id": "sky-mist", "name": "天雾蓝", "nameEn": "Sky Mist", "hex": "#A8C0C8" },
+        { "id": "sand", "name": "沙色", "nameEn": "Sand", "hex": "#C4B59D" },
+        { "id": "mint-cream", "name": "薄荷奶油", "nameEn": "Mint Cream", "hex": "#C5D5C5" },
+        { "id": "peach-nude", "name": "裸桃色", "nameEn": "Peach Nude", "hex": "#DABFA3" }
+      ],
+      "image": "/images/fabrics/fabric-006.jpg",
+      "description": "亚麻混纺，透气凉爽，适合夏季款式",
+      "descriptionEn": "Linen blend, breathable and cool, ideal for summer styles"
+    },
+    {
+      "id": "fabric-007",
+      "name": "Stretch Chino",
+      "type": "cotton",
+      "weight": "medium",
+      "pricePerUnit": 30,
+      "recommendedFor": ["pants", "shorts"],
+      "colors": [
+        { "id": "classic-khaki", "name": "经典卡其", "nameEn": "Classic Khaki", "hex": "#B5A27A" },
+        { "id": "navy-chino", "name": "藏青", "nameEn": "Navy Chino", "hex": "#1E2E40" },
+        { "id": "olive-chino", "name": "橄榄绿", "nameEn": "Olive Chino", "hex": "#5A6650" },
+        { "id": "stone-chino", "name": "石灰", "nameEn": "Stone Chino", "hex": "#8B8378" },
+        { "id": "black-chino", "name": "墨黑", "nameEn": "Black Chino", "hex": "#1C1C1C" },
+        { "id": "taupe", "name": "灰褐", "nameEn": "Taupe", "hex": "#7D6E5E" }
+      ],
+      "image": "/images/fabrics/fabric-007.jpg",
+      "description": "弹力斜纹棉，舒适有型，适合长裤",
+      "descriptionEn": "Stretch twill cotton, comfortable and stylish, ideal for pants"
+    },
+    {
+      "id": "fabric-008",
+      "name": "Classic Denim",
+      "type": "denim",
+      "weight": "heavy",
+      "pricePerUnit": 40,
+      "recommendedFor": ["pants", "shorts", "jackets"],
+      "colors": [
+        { "id": "raw-indigo", "name": "原牛靛蓝", "nameEn": "Raw Indigo", "hex": "#2B3A5C" },
+        { "id": "mid-wash", "name": "中洗蓝", "nameEn": "Mid Wash", "hex": "#4A5D7A" },
+        { "id": "light-wash", "name": "浅洗蓝", "nameEn": "Light Wash", "hex": "#7A8B9A" },
+        { "id": "black-denim", "name": "黑牛", "nameEn": "Black Denim", "hex": "#1A1A1F" },
+        { "id": "grey-denim", "name": "灰牛", "nameEn": "Grey Denim", "hex": "#4A4A4A" },
+        { "id": "vintage-blue", "name": "复古蓝", "nameEn": "Vintage Blue", "hex": "#3D4F5F" }
+      ],
+      "image": "/images/fabrics/fabric-008.jpg",
+      "description": "经典牛仔布，耐磨耐穿，风格百搭",
+      "descriptionEn": "Classic denim, durable and versatile"
+    },
+    {
+      "id": "fabric-009",
+      "name": "Silk Charmeuse",
+      "type": "silk",
+      "weight": "light",
+      "pricePerUnit": 85,
+      "recommendedFor": ["shirts"],
+      "colors": [
+        { "id": "ivory-silk", "name": "象牙丝", "nameEn": "Ivory Silk", "hex": "#FEFDF8" },
+        { "id": "champagne", "name": "香槟金", "nameEn": "Champagne", "hex": "#E8DCC8" },
+        { "id": "dusty-rose", "name": "灰玫瑰", "nameEn": "Dusty Rose", "hex": "#C9A9A0" },
+        { "id": "midnight-silk", "name": "午夜丝绒", "nameEn": "Midnight Silk", "hex": "#1A1A2E" },
+        { "id": "sage-silk", "name": "鼠尾草", "nameEn": "Sage Silk", "hex": "#9AA890" },
+        { "id": "mauve", "name": "淡紫", "nameEn": "Mauve", "hex": "#A090A8" }
+      ],
+      "image": "/images/fabrics/fabric-009.jpg",
+      "description": "真丝缎面，光泽柔美，高级质感",
+      "descriptionEn": "Silk charmeuse, soft luster, premium quality"
+    },
+    {
+      "id": "fabric-010",
+      "name": "Performance Polyester",
+      "type": "polyester",
+      "weight": "medium",
+      "pricePerUnit": 15,
+      "recommendedFor": ["leggings", "shorts", "hoodies"],
+      "colors": [
+        { "id": "arctic-white", "name": "极地白", "nameEn": "Arctic White", "hex": "#F8FAFA" },
+        { "id": "obsidian", "name": "黑曜石", "nameEn": "Obsidian", "hex": "#1C1C1C" },
+        { "id": "electric-blue", "name": "电光蓝", "nameEn": "Electric Blue", "hex": "#2E5D8C" },
+        { "id": "neon-coral", "name": "霓虹珊瑚", "nameEn": "Neon Coral", "hex": "#E07A5F" },
+        { "id": "bright-teal", "name": "亮青绿", "nameEn": "Bright Teal", "hex": "#2E8B8B" },
+        { "id": "hot-pink", "name": "活力粉", "nameEn": "Hot Pink", "hex": "#D16D8A" }
+      ],
+      "image": "/images/fabrics/fabric-010.jpg",
+      "description": "高性能聚酯，易打理，性价比高",
+      "descriptionEn": "Performance polyester, easy care, great value"
+    },
+    {
+      "id": "fabric-011",
+      "name": "Twill Cotton",
+      "type": "cotton",
+      "weight": "medium",
+      "pricePerUnit": 22,
+      "recommendedFor": ["pants", "shorts", "jackets"],
+      "colors": [
+        { "id": "bone-white", "name": "骨白", "nameEn": "Bone White", "hex": "#F0EDE5" },
+        { "id": "khaki-twill", "name": "卡其", "nameEn": "Khaki Twill", "hex": "#A69570" },
+        { "id": "navy-twill", "name": "藏青", "nameEn": "Navy Twill", "hex": "#1E2E40" },
+        { "id": "moss", "name": "苔藓绿", "nameEn": "Moss", "hex": "#5A6650" },
+        { "id": "rust", "name": "铁锈红", "nameEn": "Rust", "hex": "#8B5A3C" },
+        { "id": "slate", "name": "板岩灰", "nameEn": "Slate", "hex": "#5A5F65" }
+      ],
+      "image": "/images/fabrics/fabric-011.jpg",
+      "description": "斜纹棉布，质地紧密，适合休闲裤",
+      "descriptionEn": "Twill cotton, tight weave, ideal for casual pants"
+    },
+    {
+      "id": "fabric-012",
+      "name": "Heavy Wool Coating",
+      "type": "wool",
+      "weight": "heavy",
+      "pricePerUnit": 75,
+      "recommendedFor": ["coats", "jackets"],
+      "colors": [
+        { "id": "melange-grey", "name": "混色灰", "nameEn": "Melange Grey", "hex": "#6B6868" },
+        { "id": "carbon", "name": "碳灰", "nameEn": "Carbon", "hex": "#2A2D30" },
+        { "id": "cognac", "name": "干邑棕", "nameEn": "Cognac", "hex": "#7A5230" },
+        { "id": "camel-coat", "name": "驼绒", "nameEn": "Camel Coat", "hex": "#A08060" },
+        { "id": "bordeaux", "name": "波尔多红", "nameEn": "Bordeaux", "hex": "#5C2E35" },
+        { "id": "pine", "name": "松绿", "nameEn": "Pine", "hex": "#2E4A3A" }
+      ],
+      "image": "/images/fabrics/fabric-012.jpg",
+      "description": "重磅羊毛，保暖极佳，适合大衣",
+      "descriptionEn": "Heavy wool, excellent warmth, ideal for coats"
+    }
+  ]
+}
