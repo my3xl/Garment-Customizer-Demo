@@ -6,15 +6,15 @@ export const AI_CONFIG = {
   // API Key from environment variable
   apiKey: import.meta.env.VITE_AI_API_KEY || '',
 
-  // API 端点 - 通过 Vite 代理避免 CORS 问题
+  // API 端点 - 使用 Vercel Serverless Functions 代理
   endpoints: {
     qwen: {
       // 多模态生图（qwen-image 系列）
-      multimodal: '/api/dashscope/services/aigc/multimodal-generation/generation',
+      multimodal: '/api/multimodal',
       // 图像生成（wan2.6-image 等）
-      imageGeneration: '/api/dashscope/services/aigc/image-generation/generation',
+      imageGeneration: '/api/image-generation',
       // 异步任务查询
-      task: '/api/dashscope/tasks',
+      task: '/api/task',
     },
   },
 };

@@ -51,7 +51,7 @@ export class QwenProvider {
 
     for (let i = 0; i < maxAttempts; i++) {
       try {
-        const response = await fetch(`${this.endpoints.task}/${taskId}`, {
+        const response = await fetch(`${this.endpoints.task}?taskId=${taskId}`, {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${this.apiKey}`,
