@@ -23,10 +23,32 @@ export const AI_CONFIG = {
 // 注意：imageGeneration 端点仅支持纯文本生图，不支持输入图片
 // multimodal 端点支持图片+文本输入，适合我们的场景
 export const AVAILABLE_MODELS = {
-  'qwen-image-2.0': { name: 'Qwen Image 2.0', desc: '速度快，支持图片输入', endpoint: 'multimodal', async: false },
-  'qwen-image-2.0-pro': { name: 'Qwen Image 2.0 Pro', desc: '高质量，支持图片输入', endpoint: 'multimodal', async: false },
-  'wan2.6-image': { name: 'Wan 2.6 Image', desc: '新模型，仅支持纯文本生图', endpoint: 'imageGeneration', async: true },
-  'wanx-v1': { name: '通义万相 v1', desc: '创意性强，仅支持纯文本生图', endpoint: 'imageGeneration', async: true },
+  'qwen-image-2.0': { name: 'Qwen Image 2.0', desc: '速度快，支持图片输入', endpoint: 'multimodal', async: false, speed: 'fast' },
+  'qwen-image-2.0-pro': { name: 'Qwen Image 2.0 Pro', desc: '高质量，支持图片输入', endpoint: 'multimodal', async: false, speed: 'slow' },
+  'wan2.6-image': { name: 'Wan 2.6 Image', desc: '新模型，仅支持纯文本生图', endpoint: 'imageGeneration', async: true, speed: 'medium' },
+  'wanx-v1': { name: '通义万相 v1', desc: '创意性强，仅支持纯文本生图', endpoint: 'imageGeneration', async: true, speed: 'medium' },
+};
+
+// 渲染速度模式
+export const SPEED_MODES = {
+  fast: {
+    name: '快速模式',
+    model: 'qwen-image-2.0',
+    size: '512*512',
+    desc: '速度快，质量稍低',
+  },
+  balanced: {
+    name: '均衡模式',
+    model: 'qwen-image-2.0',
+    size: '720*720',
+    desc: '速度与质量平衡',
+  },
+  quality: {
+    name: '高质量模式',
+    model: 'qwen-image-2.0-pro',
+    size: '720*720',
+    desc: '质量最高，速度较慢',
+  },
 };
 
 // 可用的输出尺寸

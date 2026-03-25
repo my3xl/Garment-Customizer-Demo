@@ -232,6 +232,7 @@ export function CustomizationProvider({ children }) {
   }, []);
 
   // 流程1：核心生图（款式线稿 + 布料纹理 → 渲染结果）
+  // 优化：并行渲染所有图片
   const startRender = useCallback(async () => {
     if (!state.selectedStyle || !state.selectedFabric || state.selectedColors.length === 0) {
       return;
@@ -264,39 +265,59 @@ export function CustomizationProvider({ children }) {
     const total = state.selectedColors.length * 2;
     let completedCount = 0;
 
-    try {
+    // 构建所有渲染任务
+    const tasks = [];
     for (const view of ['front', 'back']) {
       for (const color of state.selectedColors) {
-        if (abortMarker.cancelled) break;
-
         const imageUrl = view === 'front' ? imageUrls.front : imageUrls.back;
+        const key = `${color.id}_${view}`;
 
-        try {
-          const renderedUrl = await renderGarment({
+        tasks.push({
+          key,
+          color,
+          view,
+          imageUrl,
+          promise: renderGarment({
             style: state.selectedStyle,
             fabric: state.selectedFabric,
             color,
             view,
             imageUrl,
             hasLining: state.selectedStyle.hasLining || false,
-          });
-
-          completedCount++;
-
-          const key = `${color.id}_${view}`;
-          dispatch({ type: 'SET_RENDER_RESULT', payload: { key, url: renderedUrl } });
-
-          dispatch({
-            type: 'SET_RENDER_PROGRESS',
-            payload: { current: completedCount, total },
-          });
-        } catch (error) {
-          const key = `${color.id}_${view}`;
-          dispatch({ type: 'SET_RENDER_ERROR', payload: { key, error: error.message } });
-          completedCount++;
-        }
+          }),
+        });
       }
     }
+
+    // 并行执行所有任务，逐个完成时更新状态
+    try {
+      await Promise.all(
+        tasks.map(async (task) => {
+          if (abortMarker.cancelled) return;
+
+          try {
+            const renderedUrl = await task.promise;
+
+            if (!abortMarker.cancelled) {
+              completedCount++;
+              dispatch({ type: 'SET_RENDER_RESULT', payload: { key: task.key, url: renderedUrl } });
+              dispatch({
+                type: 'SET_RENDER_PROGRESS',
+                payload: { current: completedCount, total },
+              });
+            }
+          } catch (error) {
+            if (!abortMarker.cancelled) {
+              completedCount++;
+              dispatch({ type: 'SET_RENDER_ERROR', payload: { key: task.key, error: error.message } });
+              dispatch({
+                type: 'SET_RENDER_PROGRESS',
+                payload: { current: completedCount, total },
+              });
+            }
+          }
+        })
+      );
     } catch (error) {
       if (!abortMarker.cancelled) {
         dispatch({ type: 'SET_RENDER_ERROR', payload: { key: 'global', error: error.message } });
