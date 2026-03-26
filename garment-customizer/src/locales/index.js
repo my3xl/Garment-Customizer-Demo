@@ -36,6 +36,10 @@ export const zh = {
   selectedSizes: '已选择',
   nextFabric: '下一步：选择布料',
   sizeSystem: '尺码类型',
+  fit: '版型',
+  sizeRange: '尺码范围',
+  pomTable: '尺寸测量表 (POM)',
+  pomName: '测量点',
 
   // Fabric Selector
   fabricFilter: '布料筛选',
@@ -186,6 +190,10 @@ export const en = {
   selectedSizes: 'Selected',
   nextFabric: 'Next: Select Fabric',
   sizeSystem: 'Size Type',
+  fit: 'Fit',
+  sizeRange: 'Size Range',
+  pomTable: 'Point of Measure (POM)',
+  pomName: 'Measurement',
 
   // Fabric Selector
   fabricFilter: 'Fabric Filter',

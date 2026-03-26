@@ -1,71 +1,60 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useCustomization } from '../../context/CustomizationContext';
 import { useLanguage } from '../../context/LanguageContext';
+import stylesData from '../../data/styles.json';
 import clsx from 'clsx';
 
-// 尺码类型定义
-const sizeSystems = [
-  {
-    id: 'alpha',
-    name: '国际字母码',
-    nameEn: 'Alpha',
-    sizes: ['XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL'],
-    baseSizeIndex: 2, // M 是基码
-    defaultRange: [1, 6] // S~XXL，包含基码M，共5个尺码
-  },
-  {
-    id: 'us',
-    name: '美码',
-    nameEn: 'US',
-    sizes: ['0', '2', '4', '6', '8', '10', '12', '14', '16', '18'],
-    baseSizeIndex: 4, // 8 是基码
-    defaultRange: [2, 7] // 4~12，包含基码8，共5个尺码
-  },
-  {
-    id: 'eu',
-    name: '欧码',
-    nameEn: 'EU',
-    sizes: ['32', '34', '36', '38', '40', '42', '44', '46', '48', '50'],
-    baseSizeIndex: 4, // 40 是基码
-    defaultRange: [2, 7] // 36~44，包含基码40，共5个尺码
-  },
-  {
-    id: 'uk',
-    name: '英码',
-    nameEn: 'UK',
-    sizes: ['4', '6', '8', '10', '12', '14', '16', '18', '20', '22'],
-    baseSizeIndex: 4, // 12 是基码
-    defaultRange: [2, 7] // 8~16，包含基码12，共5个尺码
-  }
-];
-
-const sizeGroups = {
-  alpha: [
-    { id: 'xs-s', name: 'XS-S', sizes: ['XS', 'S'] },
-    { id: 'm-l', name: 'M-L', sizes: ['M', 'L'] },
-    { id: 'xl-xxl', name: 'XL-XXL', sizes: ['XL', 'XXL'] },
-  ],
-  us: [
-    { id: '0-4', name: '0-4', sizes: ['0', '2', '4'] },
-    { id: '6-10', name: '6-10', sizes: ['6', '8', '10'] },
-    { id: '12-18', name: '12-18', sizes: ['12', '14', '16', '18'] },
-  ],
-  eu: [
-    { id: '32-36', name: '32-36', sizes: ['32', '34', '36'] },
-    { id: '38-42', name: '38-42', sizes: ['38', '40', '42'] },
-    { id: '44-50', name: '44-50', sizes: ['44', '46', '48', '50'] },
-  ],
-  uk: [
-    { id: '4-8', name: '4-8', sizes: ['4', '6', '8'] },
-    { id: '10-14', name: '10-14', sizes: ['10', '12', '14'] },
-    { id: '16-22', name: '16-22', sizes: ['16', '18', '20', '22'] },
-  ]
-};
-
 export default function SizeRangeSelector() {
-  const { selectedStyle, sizeRange, setSizeRange, nextStep, prevStep } = useCustomization();
+  const {
+    selectedStyle,
+    sizeRange,
+    setSizeRange,
+    selectedFit,
+    setFit,
+    pomValues,
+    setPomValues,
+    updatePomValue,
+    nextStep,
+    prevStep
+  } = useCustomization();
   const { t, language } = useLanguage();
-  const [selectedSystem, setSelectedSystem] = useState('alpha');
+
+  // 初始化默认尺码范围
+  useEffect(() => {
+    if (sizeRange.length === 0) {
+      setSizeRange(stylesData.defaultSelectedSizes);
+    }
+  }, []);
+
+  // 初始化 POM 值
+  useEffect(() => {
+    if (selectedStyle && Object.keys(pomValues).length === 0) {
+      const pomType = selectedStyle.pomType || 'tops';
+      const pomTypes = stylesData.pomTypes[pomType];
+      const pomDefaults = stylesData.pomDefaults[pomType];
+
+      const initialValues = {};
+      pomTypes.forEach(pom => {
+        initialValues[pom.id] = pomDefaults[pom.id]?.[selectedFit] || {};
+      });
+      setPomValues(initialValues);
+    }
+  }, [selectedStyle, selectedFit]);
+
+  // 当 Fit 改变时更新 POM 默认值
+  useEffect(() => {
+    if (selectedStyle && Object.keys(pomValues).length > 0) {
+      const pomType = selectedStyle.pomType || 'tops';
+      const pomTypes = stylesData.pomTypes[pomType];
+      const pomDefaults = stylesData.pomDefaults[pomType];
+
+      const newValues = {};
+      pomTypes.forEach(pom => {
+        newValues[pom.id] = pomDefaults[pom.id]?.[selectedFit] || {};
+      });
+      setPomValues(newValues);
+    }
+  }, [selectedFit]);
 
   if (!selectedStyle) {
     return (
@@ -75,60 +64,38 @@ export default function SizeRangeSelector() {
     );
   }
 
-  const currentSystem = sizeSystems.find(s => s.id === selectedSystem);
-  const currentGroups = sizeGroups[selectedSystem];
-  const availableSizes = currentSystem.sizes;
+  const pomType = selectedStyle.pomType || 'tops';
+  const pomTypes = stylesData.pomTypes[pomType];
+  const sizeRangeOptions = stylesData.sizeRange;
+  const fits = stylesData.fits;
 
   const toggleSize = (size) => {
     if (sizeRange.includes(size)) {
       setSizeRange(sizeRange.filter(s => s !== size));
     } else {
       const newSizes = [...sizeRange, size];
-      newSizes.sort((a, b) => availableSizes.indexOf(a) - availableSizes.indexOf(b));
+      newSizes.sort((a, b) => sizeRangeOptions.indexOf(a) - sizeRangeOptions.indexOf(b));
       setSizeRange(newSizes);
     }
   };
 
-  const toggleGroup = (group) => {
-    const allSelected = group.sizes.every(s => sizeRange.includes(s));
-
-    if (allSelected) {
-      setSizeRange(sizeRange.filter(s => !group.sizes.includes(s)));
-    } else {
-      const newSizes = [...new Set([...sizeRange, ...group.sizes])];
-      newSizes.sort((a, b) => availableSizes.indexOf(a) - availableSizes.indexOf(b));
-      setSizeRange(newSizes);
-    }
+  const handlePomValueChange = (pomId, size, value) => {
+    const numValue = value === '' ? '' : Number(value);
+    updatePomValue(pomId, size, numValue);
   };
 
-  const selectAll = () => {
-    setSizeRange([...availableSizes]);
+  // 获取 POM 名称
+  const getPomName = (pom) => {
+    return language === 'en' ? pom.nameEn : pom.name;
   };
 
-  const clearAll = () => {
-    setSizeRange([]);
-  };
-
-  // 切换尺码类型时预选包含基码的5个尺码区间
-  const handleSystemChange = (systemId) => {
-    setSelectedSystem(systemId);
-    const system = sizeSystems.find(s => s.id === systemId);
-    if (system && system.defaultRange) {
-      const [start, end] = system.defaultRange;
-      const defaultSizes = system.sizes.slice(start, end);
-      setSizeRange(defaultSizes);
-    } else {
-      setSizeRange([]);
-    }
-  };
-
-  // 获取类型名称
-  const getSystemName = (system) => {
-    return language === 'en' ? system.nameEn : system.name;
+  // 获取 Fit 名称
+  const getFitName = (fit) => {
+    return language === 'en' ? fit.nameEn : fit.name;
   };
 
   return (
-    <div className="max-w-3xl mx-auto pb-24">
+    <div className="max-w-4xl mx-auto pb-24">
       <div className="text-center mb-8">
         <h2 className="text-2xl font-bold text-gray-900">{t('selectSizeRange')}</h2>
         <p className="text-gray-600 mt-2">
@@ -136,97 +103,123 @@ export default function SizeRangeSelector() {
         </p>
       </div>
 
-      {/* 尺码类型选择 */}
+      {/* 版型选择 */}
       <div className="bg-white rounded-lg shadow p-6 mb-6">
-        <h3 className="font-medium text-gray-900 mb-4">{t('sizeType')}</h3>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-          {sizeSystems.map(system => (
+        <h3 className="font-medium text-gray-900 mb-4">{t('fit')}</h3>
+        <div className="grid grid-cols-3 gap-3">
+          {fits.map(fit => (
             <button
-              key={system.id}
-              onClick={() => handleSystemChange(system.id)}
+              key={fit.id}
+              onClick={() => setFit(fit.id)}
               className={clsx(
                 'py-3 px-4 rounded-lg border-2 font-medium transition-all text-center',
-                selectedSystem === system.id
+                selectedFit === fit.id
                   ? 'border-primary-500 bg-primary-50 text-primary-700'
                   : 'border-gray-200 bg-white text-gray-700 hover:border-gray-300'
               )}
             >
-              {getSystemName(system)}
+              {getFitName(fit)}
             </button>
           ))}
         </div>
       </div>
 
-      {/* 快捷选择 */}
-      <div className="bg-white rounded-lg shadow p-6 mb-6">
-        <div className="flex items-center justify-between mb-4">
-          <h3 className="font-medium text-gray-900">{t('quickSelect')}</h3>
-          <div className="space-x-2">
-            <button
-              onClick={selectAll}
-              className="px-3 py-1 text-sm text-primary-600 hover:bg-primary-50 rounded"
-            >
-              {t('selectAll')}
-            </button>
-            <button
-              onClick={clearAll}
-              className="px-3 py-1 text-sm text-gray-600 hover:bg-gray-50 rounded"
-            >
-              {t('clearAll')}
-            </button>
-          </div>
+      {/* 尺码范围 + POM 测量表 合并 */}
+      <div className="bg-white rounded-lg shadow overflow-hidden">
+        <div className="overflow-x-auto">
+          <table className="w-full border-collapse">
+            <thead>
+              {/* 第一行：尺寸标签 + 尺码选择 */}
+              <tr className="bg-gray-50">
+                <th className="border border-gray-200 px-4 py-3 text-left text-sm font-medium text-gray-700 w-28">
+                  {t('sizeRange')}
+                </th>
+                {sizeRangeOptions.map(size => (
+                  <th
+                    key={size}
+                    className={clsx(
+                      'border border-gray-200 px-2 py-2 text-center transition-colors',
+                      sizeRange.includes(size)
+                        ? 'bg-primary-50'
+                        : 'bg-gray-100'
+                    )}
+                  >
+                    <button
+                      onClick={() => toggleSize(size)}
+                      className={clsx(
+                        'w-full py-2 px-1 rounded font-semibold transition-all text-sm',
+                        sizeRange.includes(size)
+                          ? 'bg-primary-500 text-white'
+                          : 'bg-white border-2 border-gray-200 text-gray-400 hover:border-gray-300'
+                      )}
+                    >
+                      {size}
+                    </button>
+                  </th>
+                ))}
+              </tr>
+              {/* 第二行：POM 测量点标签 */}
+              <tr className="bg-gray-100">
+                <th className="border border-gray-200 px-4 py-2 text-left text-xs font-medium text-gray-500">
+                  {t('pomName')}
+                </th>
+                {sizeRangeOptions.map(size => (
+                  <th
+                    key={size}
+                    className={clsx(
+                      'border border-gray-200 px-2 py-2 text-center text-xs font-medium',
+                      sizeRange.includes(size) ? 'text-gray-600' : 'text-gray-300'
+                    )}
+                  >
+                    ({size})
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {pomTypes.map((pom, idx) => (
+                <tr key={pom.id} className={idx % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
+                  <td className="border border-gray-200 px-4 py-2 text-sm text-gray-700">
+                    {getPomName(pom)}
+                    <span className="text-gray-400 ml-1 text-xs">({pom.unit})</span>
+                  </td>
+                  {sizeRangeOptions.map(size => {
+                    const value = pomValues[pom.id]?.[size] ?? '';
+                    const isSelected = sizeRange.includes(size);
+                    return (
+                      <td
+                        key={size}
+                        className={clsx(
+                          'border border-gray-200 px-1 py-1',
+                          !isSelected && 'bg-gray-50'
+                        )}
+                      >
+                        <input
+                          type="number"
+                          value={value}
+                          onChange={(e) => handlePomValueChange(pom.id, size, e.target.value)}
+                          className={clsx(
+                            'w-full px-2 py-2 text-center text-sm border-0 focus:ring-2 focus:ring-primary-500 rounded transition-colors',
+                            isSelected
+                              ? 'bg-white text-gray-700'
+                              : 'bg-gray-100 text-gray-300'
+                          )}
+                          readOnly={!isSelected}
+                        />
+                      </td>
+                    );
+                  })}
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
 
-        <div className="flex gap-3">
-          {currentGroups.map(group => {
-            const allSelected = group.sizes.every(s => sizeRange.includes(s));
-
-            return (
-              <button
-                key={group.id}
-                onClick={() => toggleGroup(group)}
-                className={clsx(
-                  'flex-1 py-3 px-4 rounded-lg border-2 font-medium transition-all',
-                  allSelected
-                    ? 'border-primary-500 bg-primary-50 text-primary-700'
-                    : 'border-gray-200 bg-white text-gray-700 hover:border-gray-300'
-                )}
-              >
-                {group.name}
-              </button>
-            );
-          })}
-        </div>
-      </div>
-
-      {/* 单个尺码选择 */}
-      <div className="bg-white rounded-lg shadow p-6">
-        <h3 className="font-medium text-gray-900 mb-4">{t('singleSizeSelect')}</h3>
-
-        <div className={clsx(
-          'grid gap-3',
-          availableSizes.length <= 7 ? 'grid-cols-7' : 'grid-cols-5'
-        )}>
-          {availableSizes.map(size => (
-            <button
-              key={size}
-              onClick={() => toggleSize(size)}
-              className={clsx(
-                'py-4 rounded-lg border-2 font-semibold transition-all',
-                sizeRange.includes(size)
-                  ? 'border-primary-500 bg-primary-500 text-white'
-                  : 'border-gray-200 bg-white text-gray-700 hover:border-gray-300'
-              )}
-            >
-              {size}
-            </button>
-          ))}
-        </div>
-
+        {/* 已选尺码提示 */}
         {sizeRange.length > 0 && (
-          <div className="mt-4 p-3 bg-gray-50 rounded-lg">
-            <p className="text-sm text-gray-600">
-              {t('selectedSizes')}：<span className="font-medium text-gray-900">{sizeRange.join(' / ')}</span>
+          <div className="p-3 bg-primary-50 border-t border-primary-100">
+            <p className="text-sm text-primary-700">
+              {t('selectedSizes')}：<span className="font-medium">{sizeRange.join(' / ')}</span>
             </p>
           </div>
         )}
@@ -234,7 +227,7 @@ export default function SizeRangeSelector() {
 
       {/* 固定底部操作栏 */}
       <div className="fixed bottom-0 left-0 right-0 bg-white border-t shadow-lg z-40">
-        <div className="max-w-3xl mx-auto px-6 py-4 flex justify-between items-center">
+        <div className="max-w-4xl mx-auto px-6 py-4 flex justify-between items-center">
           <button
             onClick={prevStep}
             className="px-6 py-2 border border-gray-300 text-gray-700 rounded-lg font-medium hover:bg-gray-50 transition-colors min-w-[120px]"

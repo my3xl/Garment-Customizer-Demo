@@ -5,6 +5,8 @@ const initialState = {
   currentStep: 1,
   selectedStyle: null,
   sizeRange: [],
+  selectedFit: 'regular', // 版型: slim, regular, loose
+  pomValues: {},          // POM 测量值
   selectedFabric: null,
   selectedColors: [],
   accessories: {},
@@ -27,6 +29,8 @@ function customizationReducer(state, action) {
         ...state,
         selectedStyle: action.payload,
         sizeRange: [],
+        selectedFit: 'regular',
+        pomValues: {},
         selectedFabric: null,
         selectedColors: [],
         accessories: {},
@@ -40,6 +44,26 @@ function customizationReducer(state, action) {
 
     case 'SET_SIZE_RANGE':
       return { ...state, sizeRange: action.payload };
+
+    case 'SET_FIT':
+      return { ...state, selectedFit: action.payload };
+
+    case 'SET_POM_VALUES':
+      return { ...state, pomValues: action.payload };
+
+    case 'UPDATE_POM_VALUE': {
+      const { pomId, size, value } = action.payload;
+      return {
+        ...state,
+        pomValues: {
+          ...state.pomValues,
+          [pomId]: {
+            ...state.pomValues[pomId],
+            [size]: value,
+          },
+        },
+      };
+    }
 
     case 'SET_FABRIC':
       return {
@@ -201,6 +225,18 @@ export function CustomizationProvider({ children }) {
 
   const setSizeRange = useCallback((sizes) => {
     dispatch({ type: 'SET_SIZE_RANGE', payload: sizes });
+  }, []);
+
+  const setFit = useCallback((fit) => {
+    dispatch({ type: 'SET_FIT', payload: fit });
+  }, []);
+
+  const setPomValues = useCallback((values) => {
+    dispatch({ type: 'SET_POM_VALUES', payload: values });
+  }, []);
+
+  const updatePomValue = useCallback((pomId, size, value) => {
+    dispatch({ type: 'UPDATE_POM_VALUE', payload: { pomId, size, value } });
   }, []);
 
   const setFabric = useCallback((fabric) => {
@@ -394,6 +430,9 @@ export function CustomizationProvider({ children }) {
     prevStep,
     setStyle,
     setSizeRange,
+    setFit,
+    setPomValues,
+    updatePomValue,
     setFabric,
     setColors,
     toggleColor,
