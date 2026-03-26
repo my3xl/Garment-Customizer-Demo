@@ -6,7 +6,7 @@ const translations = { zh, en };
 const LanguageContext = createContext(null);
 
 export function LanguageProvider({ children }) {
-  const [language, setLanguage] = useState('zh');
+  const [language, setLanguage] = useState('en');
 
   const t = useCallback((key) => {
     const keys = key.split('.');
